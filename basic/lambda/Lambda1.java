@@ -24,7 +24,7 @@ public class Lambda1 {
             }
         });
 
-        //Lambda表达式
+        //Lambda表达式 无参无返
         useEatable(()->{
             System.out.println("33333333333333");
         });
