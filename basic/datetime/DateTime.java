@@ -1,8 +1,9 @@
 package basic.datetime;
 
 import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.logging.SimpleFormatter;
 
 public class DateTime {
     public static void main(String[] args) {
@@ -33,6 +34,56 @@ public class DateTime {
             System.out.println(e);
         }
         System.out.println(d4);
+
+
+
+        //LocalDateTime
+        LocalDateTime localDateTime = LocalDateTime.of(2022,3,31,12,23,51);
+        int year = localDateTime.getYear();
+        System.out.println(year);
+        Month month = localDateTime.getMonth();
+        System.out.println(month);
+        int monthValue = localDateTime.getMonthValue();
+        System.out.println(monthValue);
+        int dayOfYear = localDateTime.getDayOfYear();
+        System.out.println(dayOfYear);
+        DayOfWeek dayOfWeek = localDateTime.getDayOfWeek();
+        System.out.println(dayOfWeek);
+        int minute = localDateTime.getMinute();
+        System.out.println(minute);
+        int hour = localDateTime.getHour();
+        System.out.println(hour);
+        int second = localDateTime.getSecond();
+        System.out.println(second);
+
+        //LocalDate
+        LocalDate localDate = localDateTime.toLocalDate();
+        System.out.println(localDate);
+
+        //LocalTime
+        LocalTime localTime = localDateTime.toLocalTime();
+        System.out.println(localTime);
+
+        //DateTimeFormatter
+        String s = "2022年03月30日 13:14:15";
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
+        LocalDateTime parse = LocalDateTime.parse(s, pattern);
+        System.out.println(parse);
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
+        String Fstring = parse.format(dateTimeFormatter);
+        System.out.println(Fstring);
+
+        //Plus
+        LocalDateTime newLocalDateTime = localDateTime.plusYears(+1);
+        System.out.println(newLocalDateTime);
+
+        //Minus
+        LocalDateTime newLocalDateTime2 = localDateTime.minusYears(+1);
+        System.out.println(newLocalDateTime2);
+
+        //Period
+
 
 
     }
