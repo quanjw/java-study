@@ -3,6 +3,7 @@ package basic.datetime;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class DateTime {
@@ -83,8 +84,30 @@ public class DateTime {
         System.out.println(newLocalDateTime2);
 
         //Period
+        LocalDate localDate1 = LocalDate.of(2022,3,31);
+        LocalDate localDate2 = LocalDate.of(1992,4,15);
+        Period period = Period.between(localDate1,localDate2);
 
+        int periodYears = period.getYears();
+        System.out.println(periodYears);
 
+        int periodMonths = period.getMonths();
+        System.out.println(periodMonths);
 
+        int periodDays =period.getDays();
+        System.out.println(periodDays);
+
+        long days = ChronoUnit.DAYS.between(localDate1,localDate2);
+        System.out.println(days);
+
+        //Duration
+        LocalDateTime localDateTime1 = LocalDateTime.of(2022,4, 1,0,12,0);
+        LocalDateTime localDateTime2 = LocalDateTime.of(1992,4,19,0,12,0);
+        Duration durable = Duration.between(localDateTime1,localDateTime2);
+        long durableSecond= durable.getSeconds();
+        System.out.println(durableSecond);
+
+        long minutes= durable.toMillis();
+        System.out.println(minutes);
     }
 }
