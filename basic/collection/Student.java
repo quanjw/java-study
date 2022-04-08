@@ -1,5 +1,7 @@
 package basic.collection;
 
+import java.util.Objects;
+
 public class Student implements Comparable<Student>{
     private String name;
     private int age;
@@ -37,5 +39,18 @@ public class Student implements Comparable<Student>{
         //年龄从小到大 其次姓名
         int result = this.age - o.age;
         return  result == 0 ? this.name.compareTo(o.name):result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return age == student.age && name.equals(student.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
     }
 }
