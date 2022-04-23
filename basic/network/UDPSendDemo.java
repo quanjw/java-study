@@ -19,7 +19,7 @@ public class UDPSendDemo {
             }
 
             byte[] bytes = string.getBytes(StandardCharsets.UTF_8);
-            datagramPacket = new DatagramPacket(bytes, bytes.length, InetAddress.getByName("127.0.0.1"),10086);
+            datagramPacket = new DatagramPacket(bytes, bytes.length, InetAddress.getByName("255.255.255.255"),10086);
             datagramSocket.send(datagramPacket);
 
         }
