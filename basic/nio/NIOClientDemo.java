@@ -12,13 +12,10 @@ public class NIOClientDemo {
         socketChannel.connect(new InetSocketAddress("127.0.0.1",10086));
 
         ByteBuffer byteBuffer = ByteBuffer.wrap("is anyone in here".getBytes());
-
         socketChannel.write(byteBuffer);
 
-        socketChannel.shutdownOutput();
-
         ByteBuffer byteBuffer2 = ByteBuffer.allocate(1024);
-        byteBuffer2.clear();
+
         int len;
         while ( (len = socketChannel.read(byteBuffer2)) != -1){
             byteBuffer2.flip();
