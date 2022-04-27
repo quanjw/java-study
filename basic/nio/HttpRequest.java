@@ -26,6 +26,7 @@ public class HttpRequest {
                 stringBuilder.append(new String(byteBuffer.array(),0,len));
                 byteBuffer.clear();
             }
+            System.out.println(stringBuilder);
             parseHttpRequest(stringBuilder);
         } catch (IOException e) {
             e.printStackTrace();
