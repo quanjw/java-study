@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>components-dynamic-async</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+<!--在动态组件上使用 keep-alive-->
+  <keep-alive>
+    <component v-bind:is="currentTabComponent"></component>
+  </keep-alive>
+
+  <!--异步组件-->
+    <p>TODO</p>
+</div>
+
+</body>
+<script>
+
+  Vue.component('async-webpack-example', function (resolve) {
+    // 这个特殊的 `require` 语法将会告诉 webpack
+    // 自动将你的构建代码切割成多个包，这些包
+    // 会通过 Ajax 请求加载
+    require(['./my-async-component'], resolve)
+  })
+
+  Vue.component('async-webpack-example', function (resolve) {
+    // 这个特殊的 `require` 语法将会告诉 webpack
+    // 自动将你的构建代码切割成多个包，这些包
+    // 会通过 Ajax 请求加载
+    require(['./my-async-component'], resolve)
+  })
+
+  Vue.component(
+          'async-webpack-example',
+          // 这个动态导入会返回一个 `Promise` 对象。
+          () => import('./my-async-component')
+  )
+
+  new Vue({
+    // ...
+    components: {
+      'my-component': () => import('./my-async-component')
+    }
+  })
+
+  //处理加载状态
+  const AsyncComponent = () => ({
+    // 需要加载的组件 (应该是一个 `Promise` 对象)
+    component: import('./MyComponent.vue'),
+    // 异步组件加载时使用的组件
+    loading: LoadingComponent,
+    // 加载失败时使用的组件
+    error: ErrorComponent,
+    // 展示加载时组件的延时时间。默认值是 200 (毫秒)
+    delay: 200,
+    // 如果提供了超时时间且组件加载也超时了，
+    // 则使用加载失败时使用的组件。默认值是：`Infinity`
+    timeout: 3000
+  })
+
+  data = {
+
+  }
+
+
+  var vm = new Vue({
+    el:"#app",
+    data:data,
+
+  })
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--文本-->
+    <p v-on:click="message = 'message world'">message:{{message}}</p>
+    <p  v-on:click="msg = 'message world222'" v-once>这个将不会改变: {{ msg }}</p>
+
+    <!--原始 HTML-->
+    <p>Using mustaches: {{ rawHtml }}</p>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+    <!--Attribute-->
+    <div v-bind:id="dynamicId">dynamicId</div>
+    <button  v-bind:disabled="isButtonDisabled">Button</button>
+
+    <!--使用 JavaScript 表达式-->
+    <!--模板表达式都被放在沙盒中，只能访问全局变量的一个白名单，如 Math 和 Date 。你不应该在模板表达式中试图访问用户定义的全局变量。-->
+    <div>{{ ok ? 'YES' : 'NO' }}</div>
+
+    <!--指令-->
+    <p v-if="seen">现在你看到我了</p>
+
+    <a v-bind:href="url">baidu.com</a>
+
+    <!--修饰符-->
+    <div @click="click1">
+        <div @click.stop="click2">
+            修饰符
+        </div>
+    </div>
+
+    <!--onSubmit-->
+    <!-- 完整语法 -->
+    <a v-bind:href="url">...</a>
+
+    <!-- 缩写 -->
+    <a :href="url">...</a>
+
+    <!-- 动态参数的缩写 (2.6.0+) -->
+<!--    <a :[key]="url"> ... </a>-->
+
+
+    <!-- 完整语法 -->
+    <a v-on:click="doSomething">...</a>
+
+    <!-- 缩写 -->
+    <a @click="doSomething">...</a>
+
+    <!-- 动态参数的缩写 (2.6.0+) -->
+<!--    <a @[event]="doSomething"> ... </a>-->
+</div>
+</body>
+<script>
+    var data = {
+        message:"hello message",
+        msg:"once msa",
+        rawHtml:"<h1>rawhtml</h1> ",
+        dynamicId:1234123,
+        isButtonDisabled:true,
+        ok:true,
+        url:"https://www.baidu.com",
+        seen: true,
+
+    }
+    var vm = new Vue({
+        el:"#app",
+        data:data,
+        methods:{
+            click1:function (){
+                console.log("click1")
+            },
+            click2:function (){
+                console.log("click2")
+            },
+            doSomething:function (){
+
+            }
+        }
+    })
+
+</script>
+</html>

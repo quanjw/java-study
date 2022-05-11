@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>components-registration</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-component-name></my-component-name>
+    <component-a></component-a>
+    <component-b></component-b>
+</div>
+<script>
+
+    /*全局注册*/
+    Vue.component('my-component-name', {
+        template:'<h1>all</h1>'
+    })
+
+    var ComponentA = {
+        template:'<h1>h1</h1>'
+    }
+    var ComponentB = {
+        template:'<h2>h2</h2>'
+    }
+
+    data = {
+
+    }
+    var vm = new Vue({
+        el:"#app",
+        data:data,
+        //局部注册
+        components: {
+            'component-a': ComponentA,
+            'component-b': ComponentB
+        }
+    })
+</script>
+</body>
+</html>

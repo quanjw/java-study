@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>components-props</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!-- 在 HTML 中是 kebab-case 的 -->
+    <blog-post post-title="hello!"></blog-post>
+
+
+    <!--Prop 的大小写 (camelCase vs kebab-case)-->
+    <!-- error <MyComponentA></MyComponentA>-->
+    <my-component-a></my-component-a>
+
+
+    <!--传递静态或动态 Prop-->
+    <blog-post title="My journey with Vue"></blog-post>
+    <blog-post  v-bind:title="post.title"
+                v-bind:likes="42"
+                v-bind="post"
+    ></blog-post>
+
+    <blog-post2 v-bind:title="post.title"></blog-post2>
+</div>
+<script>
+
+
+    Vue.component('MyComponentA', {
+        template: '<div MyId="123">hello, world</div>'
+    })
+
+
+
+    //Prop 类型
+    /*props: {
+      title: String,
+      likes: Number,
+      isPublished: Boolean,
+      commentIds: Array,
+      author: Object,
+      callback: Function,
+      contactsPromise: Promise // or any other constructor
+    }*/
+
+    Vue.component('blog-post', {
+        // 在 JavaScript 中是 camelCase 的
+        props: {
+            title: String,
+            likes: Number,
+            isPublished: Boolean,
+            commentIds: Array,
+            author: Object,
+            callback: Function,
+            contactsPromise: Promise, // or any other constructor
+            //传入一个对象的所有 property
+            post: Object,
+        },
+
+        template: `<div><h1>{{title}}</h1>
+            <h2> {{likes}}</h2>
+            <h3> {{isPublished}}</h3>
+            <h4> {{commentIds}}</h4>
+            </div>
+            `
+
+    })
+
+    Vue.component('blog-post2', {
+        props: {
+            title:String
+        },
+
+        template: '<h3>{{ title }}</h3>'
+    })
+
+
+    //Prop 验证
+    Vue.component('my-component', {
+        props: {
+            // 基础的类型检查 (`null` 和 `undefined` 会通过任何类型验证)
+            propA: Number,
+            // 多个可能的类型
+            propB: [String, Number],
+            // 必填的字符串
+            propC: {
+                type: String,
+                required: true
+            },
+            // 带有默认值的数字
+            propD: {
+                type: Number,
+                default: 100
+            },
+            // 带有默认值的对象
+            propE: {
+                type: Object,
+                // 对象或数组默认值必须从一个工厂函数获取
+                default: function () {
+                    return { message: 'hello' }
+                }
+            },
+            // 自定义验证函数
+            propF: {
+                validator: function (value) {
+                    // 这个值必须匹配下列字符串中的一个
+                    return ['success', 'warning', 'danger'].indexOf(value) !== -1
+                }
+            }
+        }
+    })
+
+
+
+
+    data = {
+        post:{
+            title: "mytitle",
+            likes: 11,
+            isPublished: true,
+            commentIds: [1,2],
+            author: {name:"quanjw"},
+            //callback: Function,
+            //contactsPromise: Promise // or any other constructor
+        }
+    }
+    var vm = new Vue({
+        el:"#app",
+        data:data,
+
+    })
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mixins</title>  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+
+</body>
+<script>
+    //基础
+    // 定义一个混入对象
+    var myMixin = {
+        created: function () {
+            this.hello()
+        },
+        methods: {
+            hello: function () {
+                console.log('hello from mixin!')
+            }
+        }
+    }
+
+    // 定义一个使用混入对象的组件
+    var Component = Vue.extend({
+        mixins: [myMixin]
+    })
+
+    var component = new Component() // => "hello from mixin!"
+
+//--------------------------------------------------------------------------------
+    //选项合并
+    //1.数据对象在内部会进行递归合并，并在发生冲突时以组件数据优先。
+    //2.同名钩子函数将合并为一个数组，因此都将被调用,混入对象的钩子将在组件自身钩子之前调用。
+    //3.值为对象的选项，例如 methods、components 和 directives，将被合并为同一个对象。两个对象键名冲突时，取组件对象的键值对。
+    var mixin = {
+        data: function () {
+            return {
+                message: 'hello',
+                foo: 'abc'
+            }
+        },
+        created: function () {
+            console.log('混入对象的钩子被调用')
+        },
+        methods: {
+            foo: function () {
+                console.log('foo')
+            },
+            conflicting: function () {
+                console.log('from mixin')
+            }
+        }
+    }
+
+    new Vue({
+        mixins: [mixin],
+        data: function () {
+            return {
+                message: 'goodbye',
+                bar: 'def'
+            }
+        },
+        created: function () {
+            console.log('组件钩子被调用')
+        },
+        methods: {
+        bar: function () {
+            console.log('bar')
+        },
+        conflicting: function () {
+            console.log('from self')
+        }
+    }
+    })
+
+    //全局混入 谨慎使用
+    // 为自定义的选项 'myOption' 注入一个处理器。
+    Vue.mixin({
+        created: function () {
+            var myOption = this.$options.myOption
+            if (myOption) {
+                console.log(myOption)
+            }
+        }
+    })
+
+    new Vue({
+        myOption: 'hello!'
+    })
+    // => "hello!"
+
+    //自定义选项合并策略 TODO
+
+</script>
+</html>

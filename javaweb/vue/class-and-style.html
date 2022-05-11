@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+  <!--对象语法-->
+  <!--<div class="static" v-bind:class="{active:isatcive, 'text-danger': hasError}" style="width: 100px;height: 100px;text-align: center;line-height: 100px">-->
+  <div class="static" v-bind:class="classObject" style="width: 100px;height: 100px;text-align: center;line-height: 100px">
+    hei vue
+  </div>
+
+  <!--数组语法-->
+  <div v-bind:class="[activeClass, errorClass]"> hei vue2</div>
+
+  <div v-bind:class="[{ active: isatcive }, errorClass]"> hei vue3 </div>
+
+  <!--绑定内联样式-->
+  <!--对象语法-->
+  <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">hei vue4</div>
+  <div v-bind:style="styleObject">hei vue5</div>
+  <!--数组语法-->
+  <div v-bind:style="[baseStyles, overridingStyles]">hei vue6</div>
+  <!--多重值-->
+  <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">hei vue7</div>
+</div>
+</body>
+<script>
+  var vm = new Vue({
+    el:"#app",
+    data:{
+      isatcive :true,
+      hasError: true,
+      /*classObject:{
+        active:false,
+        'text-danger': true
+      }*/
+      activeClass: 'active',
+      errorClass: 'text-danger',
+      //绑定内联样式
+      activeColor: 'red',
+      fontSize: 30,
+      styleObject: {
+        color: 'red',
+        fontSize: '13px'
+      },
+      baseStyles:{
+        color: 'red',
+      },
+      overridingStyles:{
+        fontSize: '15px'
+      }
+    },
+    computed: {
+      classObject:function (){
+        return {
+          active: this.isatcive && !this.error,
+          'text-danger': this.error && this.error.type === 'fatal'
+        }
+      }
+    }
+  })
+</script>
+<style>
+  .static{
+    font-size: 20px;
+  }
+  .active{
+    color: blue;
+  }
+  .text-danger{
+    color: crimson;
+  }
+</style>
+</html>

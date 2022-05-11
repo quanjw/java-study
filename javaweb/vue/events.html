@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>events</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--监听事件-->
+    <div @click="counter++">
+        {{counter}}
+    </div>
+
+    <!--事件处理方法-->
+    <div @click="alertName">
+        alertName
+    </div>
+
+    <!--内联处理器中的方法-->
+    <div >
+        <button @click.once="say('hi')"> say hi</button>
+        <button @click="say('hello')"> say hello</button>
+    </div>
+
+</div>
+</body>
+<script>
+    var data = {
+        counter : 0,
+        name: 'eventdemo'
+    };
+    var vm = new Vue({
+        el:"#app",
+        data:data,
+        methods:{
+            alertName:function (event){
+                alert(this.name)
+                if (event) {
+                    console.log(event)
+                    console.log(event.target.tagName)
+                }
+
+            },
+            say:function (name,event){
+                if (event) {
+                    event.preventDefault()
+                }
+                alert(name)
+            }
+        }
+    })
+
+    //直接调用
+    /*vm.alertName()*/
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>plugins</title>
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+TODO
+</body>
+<script>
+  //使用插件
+  // 调用 `MyPlugin.install(Vue)`
+  Vue.use(MyPlugin)
+
+  new Vue({
+    // ...组件选项
+  })
+
+  // 用 Browserify 或 webpack 提供的 CommonJS 模块环境时
+  var Vue = require('vue')
+  var VueRouter = require('vue-router')
+
+  // 不要忘了调用此方法
+  Vue.use(VueRouter)
+
+  //开发插件
+  MyPlugin.install = function (Vue, options) {
+    // 1. 添加全局方法或 property
+    Vue.myGlobalMethod = function () {
+      // 逻辑...
+    }
+
+    // 2. 添加全局资源
+    Vue.directive('my-directive', {
+      bind (el, binding, vnode, oldVnode) {
+        // 逻辑...
+      }
+    })
+
+    // 3. 注入组件选项
+    Vue.mixin({
+      created: function () {
+        // 逻辑...
+      }
+    })
+
+    // 4. 添加实例方法
+    Vue.prototype.$myMethod = function (methodOptions) {
+      // 逻辑...
+    }
+  }
+</script>
+</html>

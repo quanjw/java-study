@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>components-slots</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <navigation-link url="/profile">
+        <!-- 添加一个 Font Awesome 图标 -->
+        <span class="fa fa-user"></span>
+        <!--父级模板里的所有内容都是在父级作用域中编译的；子模板里的所有内容都是在子作用域中编译的。-->
+        Logged in as {{ user.name }}
+    </navigation-link>
+
+    <!--动态插槽名-->
+   <!-- <base-layout>
+        <template v-slot:[dynamicSlotName]>
+            ...
+        </template>
+    </base-layout>-->
+
+
+</div>
+
+</body>
+<script>
+
+//TODO
+    Vue.component('navigation-link', {
+        props: {
+            url: String,
+        },
+        template: `
+            <a
+          v-bind:href="url"
+          class="nav-link"
+        >
+          <slot></slot>
+        </a>
+    `
+    })
+
+
+    data = {
+        url:"/profile",
+        user:{
+            name:"quanjw"
+        }
+    }
+    var vm = new Vue({
+        el:"#app",
+        data:data,
+
+    })
+</script>
+</html>

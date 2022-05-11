@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>filters</title>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+<input v-model="message" type="text" step="20">
+<p>{{ message | capitalize }}</p>
+
+
+<!-- 在 `v-bind` 中 -->
+<!--<div v-bind:id="rawId | formatId"></div>-->
+</div>
+
+</body>
+<script>
+    //组件的选项中定义本地的过滤器
+    /*filters: {
+      capitalize: function (value) {
+        if (!value) return ''
+        value = value.toString()
+        return value.charAt(0).toUpperCase() + value.slice(1)
+      }
+    }*/
+
+    //全局定义过滤器
+    Vue.filter('capitalize', function (value) {
+        if (!value) return ''
+        value = value.toString()
+        return value.charAt(0).toUpperCase() + value.slice(1)
+    })
+
+    new Vue({
+        el:"#app",
+        data:{
+            message:'abc'
+        }
+        // ...
+    })
+</script>
+</html>
